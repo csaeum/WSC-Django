@@ -30,24 +30,13 @@ services:
 #      - www-data:/var/www/html
 
   python:
-    build:
-      context: ./
-      args:
-        PYTHON_TAG: ${PYTHON_TAG}
+    image: python:3.10-rc-alpine
     container_name: ${COMPOSE_PROJECT_NAME}-Python
-    environment:
-      DB_HOST: mysql
-      DB_USER: ${MARIADB_USER}
-      DB_PASSWORD: ${MARIADB_PASSWORD}
-      DB_NAME: ${MARIADB_DATABASE}
-      DB_ENGINE: ${DB_ENGINE}
     volumes:
     - www-data:/usr/src/app:cached
-
     networks:
       - default
       - proxy
-
     labels:
       - traefik.enable=true
       # Routers
